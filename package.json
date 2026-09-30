@@ -1,0 +1,238 @@
+{
+  "name": "ctxshift",
+  "displayName": "CtxShift",
+  "description": "Switch between project folders in one click and get everything back exactly as you left it: open tabs, editor layout, terminals, git branch and breakpoints. Groups, favourites and multi-folder projects included.",
+  "version": "0.0.2",
+  "publisher": "CodeMaman",
+  "icon": "images/avatar.png",
+  "galleryBanner": {
+    "color": "#000000",
+    "theme": "dark"
+  },
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xC0DEM4M4N/vscode-extension-ctxshift"
+  },
+  "keywords": [
+    "project manager",
+    "project switcher",
+    "workspace",
+    "context",
+    "session",
+    "restore tabs",
+    "multi-root"
+  ],
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ctxshift",
+          "title": "CtxShift",
+          "icon": "media/activity-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ctxshift": [
+        {
+          "id": "ctxshift.projects",
+          "name": "Projects",
+          "icon": "media/activity-icon.svg"
+        },
+        {
+          "id": "ctxshift.context",
+          "name": "Saved Context",
+          "icon": "media/activity-icon.svg",
+          "when": "ctxshift.hasCurrent"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "ctxshift.projects",
+        "contents": "No projects yet.\n[$(add) Add Current Folder](command:ctxshift.addCurrentFolder)\n[$(folder-opened) Add Project Folder…](command:ctxshift.addProject)\n[$(search) Scan a Folder for Projects](command:ctxshift.scanFolder)\n[$(new-folder) Create New Project](command:ctxshift.createProject)",
+        "when": "!ctxshift.hasProjects"
+      }
+    ],
+    "commands": [
+      { "command": "ctxshift.switch", "title": "Switch Project…", "category": "CtxShift", "icon": "$(arrow-swap)" },
+      { "command": "ctxshift.switchToProject", "title": "Switch to Project", "category": "CtxShift", "icon": "$(arrow-swap)" },
+      { "command": "ctxshift.openInNewWindow", "title": "Open in New Window", "category": "CtxShift", "icon": "$(multiple-windows)" },
+      { "command": "ctxshift.addProject", "title": "Add Project…", "category": "CtxShift", "icon": "$(add)" },
+      { "command": "ctxshift.addCurrentFolder", "title": "Add Current Folder as Project", "category": "CtxShift", "icon": "$(root-folder)" },
+      { "command": "ctxshift.createProject", "title": "Create New Project…", "category": "CtxShift", "icon": "$(new-folder)" },
+      { "command": "ctxshift.scanFolder", "title": "Scan Folder for Projects…", "category": "CtxShift", "icon": "$(search)" },
+      { "command": "ctxshift.addFolderToProject", "title": "Add Folder to Project…", "category": "CtxShift", "icon": "$(folder-library)" },
+      { "command": "ctxshift.editProject", "title": "Edit Project…", "category": "CtxShift", "icon": "$(edit)" },
+      { "command": "ctxshift.favorite", "title": "Add to Favourites", "category": "CtxShift", "icon": "$(star-empty)" },
+      { "command": "ctxshift.unfavorite", "title": "Remove from Favourites", "category": "CtxShift", "icon": "$(star-full)" },
+      { "command": "ctxshift.removeProject", "title": "Remove Project", "category": "CtxShift", "icon": "$(trash)" },
+      { "command": "ctxshift.renameGroup", "title": "Rename Group…", "category": "CtxShift", "icon": "$(edit)" },
+      { "command": "ctxshift.deleteGroup", "title": "Ungroup Projects", "category": "CtxShift", "icon": "$(close)" },
+      { "command": "ctxshift.saveState", "title": "Save Current Context Now", "category": "CtxShift", "icon": "$(save)" },
+      { "command": "ctxshift.restoreState", "title": "Restore Saved Context", "category": "CtxShift", "icon": "$(history)" },
+      { "command": "ctxshift.clearState", "title": "Forget Saved Context", "category": "CtxShift", "icon": "$(clear-all)" },
+      { "command": "ctxshift.revealInOS", "title": "Reveal in File Manager", "category": "CtxShift", "icon": "$(folder-opened)" },
+      { "command": "ctxshift.copyPath", "title": "Copy Path", "category": "CtxShift", "icon": "$(copy)" },
+      { "command": "ctxshift.openProjectsFile", "title": "Open projects.json", "category": "CtxShift", "icon": "$(go-to-file)" },
+      { "command": "ctxshift.importProjects", "title": "Import Projects…", "category": "CtxShift", "icon": "$(cloud-download)" },
+      { "command": "ctxshift.exportProjects", "title": "Export Projects…", "category": "CtxShift", "icon": "$(cloud-upload)" },
+      { "command": "ctxshift.showLog", "title": "Show Log", "category": "CtxShift", "icon": "$(output)" },
+      { "command": "ctxshift.openSettings", "title": "Open Settings", "category": "CtxShift", "icon": "$(gear)" },
+      { "command": "ctxshift.refresh", "title": "Refresh", "category": "CtxShift", "icon": "$(refresh)" }
+    ],
+    "menus": {
+      "commandPalette": [
+        { "command": "ctxshift.switchToProject", "when": "false" },
+        { "command": "ctxshift.openInNewWindow", "when": "false" },
+        { "command": "ctxshift.addFolderToProject", "when": "false" },
+        { "command": "ctxshift.editProject", "when": "false" },
+        { "command": "ctxshift.favorite", "when": "false" },
+        { "command": "ctxshift.unfavorite", "when": "false" },
+        { "command": "ctxshift.removeProject", "when": "false" },
+        { "command": "ctxshift.renameGroup", "when": "false" },
+        { "command": "ctxshift.deleteGroup", "when": "false" },
+        { "command": "ctxshift.revealInOS", "when": "false" },
+        { "command": "ctxshift.copyPath", "when": "false" },
+        { "command": "ctxshift.clearState", "when": "ctxshift.hasCurrent" },
+        { "command": "ctxshift.restoreState", "when": "ctxshift.hasCurrent" },
+        { "command": "ctxshift.saveState", "when": "ctxshift.hasCurrent" }
+      ],
+      "view/title": [
+        { "command": "ctxshift.addProject", "when": "view == ctxshift.projects", "group": "navigation@1" },
+        { "command": "ctxshift.addCurrentFolder", "when": "view == ctxshift.projects && !ctxshift.hasCurrent", "group": "navigation@2" },
+        { "command": "ctxshift.scanFolder", "when": "view == ctxshift.projects", "group": "navigation@3" },
+        { "command": "ctxshift.refresh", "when": "view == ctxshift.projects", "group": "navigation@4" },
+        { "command": "ctxshift.createProject", "when": "view == ctxshift.projects", "group": "1_more@1" },
+        { "command": "ctxshift.openProjectsFile", "when": "view == ctxshift.projects", "group": "2_file@1" },
+        { "command": "ctxshift.importProjects", "when": "view == ctxshift.projects", "group": "2_file@2" },
+        { "command": "ctxshift.exportProjects", "when": "view == ctxshift.projects", "group": "2_file@3" },
+        { "command": "ctxshift.showLog", "title": "Show Log", "category": "CtxShift", "icon": "$(output)" },
+      { "command": "ctxshift.openSettings", "when": "view == ctxshift.projects", "group": "3_settings@1" },
+        { "command": "ctxshift.saveState", "when": "view == ctxshift.context", "group": "navigation@1" },
+        { "command": "ctxshift.restoreState", "when": "view == ctxshift.context", "group": "navigation@2" },
+        { "command": "ctxshift.clearState", "when": "view == ctxshift.context", "group": "navigation@3" }
+      ],
+      "view/item/context": [
+        { "command": "ctxshift.switchToProject", "when": "view == ctxshift.projects && viewItem =~ /^project/ && viewItem =~ /^project(\\.fav)?$/", "group": "inline@1" },
+        { "command": "ctxshift.openInNewWindow", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "inline@2" },
+        { "command": "ctxshift.favorite", "when": "view == ctxshift.projects && viewItem =~ /^project/ && viewItem =~ /^project(\\.current)?$/", "group": "inline@3" },
+        { "command": "ctxshift.unfavorite", "when": "view == ctxshift.projects && viewItem =~ /^project\\.fav/", "group": "inline@3" },
+        { "command": "ctxshift.editProject", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "inline@4" },
+        { "command": "ctxshift.switchToProject", "when": "view == ctxshift.projects && viewItem =~ /^project/ && viewItem =~ /^project(\\.fav)?$/", "group": "1_open@1" },
+        { "command": "ctxshift.openInNewWindow", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "1_open@2" },
+        { "command": "ctxshift.editProject", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "2_edit@1" },
+        { "command": "ctxshift.addFolderToProject", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "2_edit@2" },
+        { "command": "ctxshift.favorite", "when": "view == ctxshift.projects && viewItem =~ /^project/ && viewItem =~ /^project(\\.current)?$/", "group": "2_edit@3" },
+        { "command": "ctxshift.unfavorite", "when": "view == ctxshift.projects && viewItem =~ /^project\\.fav/", "group": "2_edit@3" },
+        { "command": "ctxshift.restoreState", "when": "view == ctxshift.projects && viewItem =~ /current$/", "group": "3_context@1" },
+        { "command": "ctxshift.saveState", "when": "view == ctxshift.projects && viewItem =~ /current$/", "group": "3_context@2" },
+        { "command": "ctxshift.clearState", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "3_context@3" },
+        { "command": "ctxshift.revealInOS", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "4_path@1" },
+        { "command": "ctxshift.copyPath", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "4_path@2" },
+        { "command": "ctxshift.removeProject", "when": "view == ctxshift.projects && viewItem =~ /^project/", "group": "5_remove@1" },
+        { "command": "ctxshift.renameGroup", "when": "view == ctxshift.projects && viewItem == group", "group": "inline@1" },
+        { "command": "ctxshift.renameGroup", "when": "view == ctxshift.projects && viewItem == group", "group": "1_group@1" },
+        { "command": "ctxshift.deleteGroup", "when": "view == ctxshift.projects && viewItem == group", "group": "1_group@2" }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "ctxshift.switch",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      }
+    ],
+    "configuration": {
+      "title": "CtxShift",
+      "properties": {
+        "ctxshift.restoreOnOpen": {
+          "type": "string",
+          "enum": ["onSwitch", "always", "never"],
+          "enumDescriptions": [
+            "Restore the saved context only when you switch to a project with CtxShift.",
+            "Also restore it whenever a project's folder is opened in a window by any other means.",
+            "Never restore automatically (use the Restore Saved Context command)."
+          ],
+          "default": "onSwitch",
+          "description": "When to restore a project's saved context."
+        },
+        "ctxshift.restore.editors": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save and restore open tabs, tab order, pinned tabs, the active tab and cursor positions."
+        },
+        "ctxshift.restore.layout": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save and restore the editor group layout (splits)."
+        },
+        "ctxshift.restore.terminals": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save and restore terminals (name and working directory). Running processes are not restarted."
+        },
+        "ctxshift.restore.branch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save the checked-out git branch and switch back to it on restore. Skipped if the working tree has uncommitted changes."
+        },
+        "ctxshift.restore.breakpoints": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save and restore debugger breakpoints."
+        },
+        "ctxshift.restore.closeOtherEditors": {
+          "type": "boolean",
+          "default": true,
+          "description": "Close tabs that are open but not part of the saved context before restoring. Tabs with unsaved changes are never closed."
+        },
+        "ctxshift.autoSnapshot": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep the saved context up to date as you work (not only at the moment you switch), so it survives closing VS Code."
+        },
+        "ctxshift.saveAllBeforeSwitch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save all files with unsaved changes before switching project."
+        },
+        "ctxshift.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the current project in the status bar. Click it to switch."
+        },
+        "ctxshift.projectsFile": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path of the `projects.json` file. Leave empty to keep it in VS Code's extension storage. Point it at a synced folder (Dropbox, iCloud, a dotfiles repo) to share your project list between machines."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "build-install": "npm run build && rm -rf install/*.vsix && npm run package && mkdir -p install && mv *.vsix install/",
+    "lint": "echo \"No lint configured\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^3.2.2",
+    "typescript": "^5.6.3"
+  }
+}
