@@ -4,6 +4,14 @@ Switch between project folders in one click, and get each one back **exactly as 
 
 Part of the CodeMaman extension family, alongside [Git Branch Viewer](https://github.com/0xC0DEM4M4N/vscode-extension-git-branch-viewer).
 
+![CtxShift demo: switching projects, restoring context, scanning, grouping and editing](media/demo.gif)
+
+*Animated mockup with demo projects. A full-quality version is in `media/demo.mp4`.*
+
+![CtxShift showing the Projects view, current project in the status bar and its saved tabs and terminal](media/screenshots/overview.png)
+
+*Screenshots in this README are illustrative mockups using demo projects.*
+
 ## Quick start
 
 1. Open the **CtxShift** icon in the activity bar, or press `Cmd+Alt+P` (`Ctrl+Alt+P` on Windows/Linux).
@@ -11,6 +19,8 @@ Part of the CodeMaman extension family, alongside [Git Branch Viewer](https://gi
 3. Click a project. CtxShift saves the context of the project you are leaving, opens the new one in the **same window**, and restores its saved context.
 
 The status bar shows the current project; click it to switch.
+
+![The project switcher with favourites, recent projects, groups and quick actions](media/screenshots/switcher.png)
 
 ### Keyboard shortcuts
 
@@ -37,6 +47,8 @@ Context is kept up to date as you work (a few seconds after each change), so it 
 
 The **Saved Context** view shows exactly what is stored for the current project.
 
+![The Saved Context view listing editors, terminals and breakpoints](media/screenshots/saved-context.png)
+
 ## Managing projects
 
 - **Drag and drop** to reorder, move a project into a group, or drop it on Favourites.
@@ -49,6 +61,8 @@ The **Saved Context** view shows exactly what is stored for the current project.
 - **Import / Export** projects as JSON. Import also understands the Project Manager extension's `projects.json`.
 
 Right-click any project for the full menu.
+
+![The Edit Project menu and icon picker](media/screenshots/edit-project.png)
 
 ## Settings
 
