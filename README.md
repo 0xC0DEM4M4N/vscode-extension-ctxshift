@@ -2,7 +2,7 @@
 
 Switch between project folders in one click, and get each one back **exactly as you left it**: open tabs, editor layout, terminals, git branch and breakpoints.
 
-Part of the CodeMaman extension family, alongside [Git Branch Viewer](https://github.com/0xC0DEM4M4N/vscode-extension-git-branch-viewer).
+Part of the CodeMaman extension family, alongside [OAuth token generator, Branch Viewer, Ai Coauthoring Tracker, and more](https://marketplace.visualstudio.com/publishers/CodeMaman).
 
 ![CtxShift demo: switching projects, restoring context, scanning, grouping and editing](media/demo.gif)
 
